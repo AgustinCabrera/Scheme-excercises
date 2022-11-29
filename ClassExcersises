@@ -1,0 +1,109 @@
+;find factorial of a number
+(define (factorial numero)
+     (if (equal? numero 0)
+         1
+      (* numero (- numero 1))))
+; find max element of a list
+(define maximo
+  (lambda (lista)
+  (if (null? (cdr lista))
+      (car lista)
+    (if (> (car lista )(maximo(cdr lista)))
+        (car lista)
+        (maximo (cdr lista))
+         )
+      )
+    )
+  )
+;find length of a list
+
+(define longitud
+  (lambda(lista)
+    (if (null? lista)
+               0
+        (+ 1 (longitud(cdr lista)))))) ;tambien existe la funcion ("length")
+               
+;ejercicio 3 parcial 2c- 2015
+ ; definir funcion de complemento y duplicar
+
+(define buscar-complemento
+  (lambda (base complementos)
+    (if (equal? (caar complementos) base)
+        (car complementos)
+        (if (equal? (cadar complementos) base)
+           ; (list base (caar complementos))
+            (reverse (car complementos))
+            (buscar-complemento base (cdr complementos))
+            )
+        )
+    )
+  )          
+(define duplicar
+  (lambda (complementos cadena)
+    (if (null? cadena)
+        '()
+        (cons (buscar-complemento (car cadena) complementos)
+              (duplicar complementos (cdr cadena)))
+       )
+    )
+  )
+        
+; binary tree (ejercicio 10)
+(define (compNivel a b)
+  (if (= a b) a -1)
+)
+(define (hojasNiveladas? T n)
+  (if (null? T)
+      n
+      (compNivel
+       (hojasNiveladas? (cadr T) (+ n 1))
+       (hojasNiveladas? (caddr T) (+ n 1))
+      )
+  )
+)
+(define arbolCompleto?
+  (lambda (T) (>= (hojasNiveladas? T 0) 0))
+  )
+; find pairs
+(define pares
+  (lambda (lista)
+  (if (null? lista)
+      '()
+      (if (even? (car lista))
+          (cons (car lista)
+                (pares (cdr lista)))
+                (pares (cdr lista)
+                       )
+                )
+      )
+    )
+  )
+; encontrar duplicados
+;(define duplicados
+ ; (lambda (lista resto)
+  ;  (if (null? lista)
+   ;     resto
+    ;    (let (cabeza (car lista))           -> el problema esta aca en cabeza
+     ;         (cola(cdr lista))
+      ;    (if(member cabeza resto)
+       ;      (duplicados cola resto)
+        ;     (duplicados cola (append resto (list cabeza)))
+         ;    )
+         ; )
+        ;)
+    ;)
+  ;)
+  
+(define (remove-duplicates lista)
+  (cond ((null? lista)
+         '())
+        ((member (car lista) (cdr lista))
+         (remove-duplicates (cdr lista)))
+        (else
+         (cons (car lista) (remove-duplicates (cdr lista))))))
+
+      
+     
+
+      
+     
