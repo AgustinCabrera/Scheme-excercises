@@ -1,0 +1,14 @@
+(define buscar-complemento
+  (lambda (base complementos)
+    (if (equal? (caar complementos) base)
+        (car complementos)
+        (if (equal? (cadar complementos) base)
+           ; (list base (caar complementos))
+            (reverse (car complementos))
+            (buscar-complemento base (cdr complementos))))))          
+(define duplicar
+  (lambda (complementos cadena)
+    (if (null? cadena)
+        '()
+        (cons (buscar-complemento (car cadena) complementos)
+              (duplicar complementos (cdr cadena))))))
