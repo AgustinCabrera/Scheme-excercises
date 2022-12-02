@@ -1,0 +1,21 @@
+(define funciones (list char? integer?))
+;((aplicaOr funciones)('1# \a "hola" 2.34 99))
+;(1 #\a 99)
+(define (aplicaOr LF)
+  (lambda lista)
+  (if(null? LF)
+  '()
+  ;incluyo o no el (car lista) en la lista resultante?
+  (if(alguna-funcion-evalua-true? LF(car lista))
+     (cons (car lista) ((aplicaOr LF)(cdr lista)))
+     ((aplicaOr LF)(cdr lista))
+     )
+  )
+  )
+
+(define (alguna-funcion-evalua-true? LF elemento)
+  (if(null? LF)
+     #f
+     (if(car LF) elemento)
+     #t
+     (alguna-funcion-evalua-true? (cdr LF) elemento)))
