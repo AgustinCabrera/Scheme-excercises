@@ -1,0 +1,12 @@
+ (define (fib n)
+   (if(= n 1)
+      0
+      (fib-iterativo n 0 1 2))
+   )
+   
+   (define(fib-iterativo n f1 f2 i)
+     (if (< i n)
+         (fib-iterativo n f2(+ f1 f2) (+ i 1))
+         f2)
+     )
+  
